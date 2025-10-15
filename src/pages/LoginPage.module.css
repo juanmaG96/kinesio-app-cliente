@@ -1,0 +1,10 @@
+.pageContainer {
+  /* Hacemos que el contenedor ocupe toda la pantalla */
+  width: 100%;
+  min-height: 100vh; /* vh = viewport height (altura de la ventana) */
+
+  /* La magia de Flexbox para centrar */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;     /* Centra verticalmente */
+}
