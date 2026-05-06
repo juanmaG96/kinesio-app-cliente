@@ -1,0 +1,64 @@
+.pacientesContainer {
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 1200px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pacientesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap; /* Para que sea responsivo en móviles */
+  gap: 3rem; /* Espacio entre columnas */
+}
+
+.buscadorInput {
+  width: 300px;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.pacientesTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.btnPrimary {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btnEliminar {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  background-color: var(--error-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.errorText {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}

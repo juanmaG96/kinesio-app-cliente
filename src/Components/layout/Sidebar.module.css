@@ -1,0 +1,92 @@
+.sidebar {
+  display: flex;
+  flex-direction: column; /* Organiza los elementos en una columna vertical */
+  width: 250px; /* Ancho fijo del sidebar */
+  height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
+  background-color: #1e293b; /* Un color de fondo oscuro y profesional (azul marino oscuro) */
+  color: #e2e8f0; /* Color de texto claro para buen contraste */
+  position: fixed; /* Lo fija en la pantalla para que no se mueva con el scroll */
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra sutil a la derecha */
+}
+
+/* --- SECCIÓN DEL ENCABEZADO (LOGO Y USUARIO) --- */
+
+.sidebarHeader {
+  padding: 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #334155; /* Línea divisoria sutil */
+}
+
+.sidebarHeader h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.sidebarHeader span {
+  font-size: 0.9rem;
+  color: #94a3b8; /* Un gris azulado más suave */
+}
+
+/* --- SECCIÓN DE NAVEGACIÓN (LINKS) --- */
+
+.sidebarNav {
+  flex-grow: 1; /* Hace que esta sección ocupe todo el espacio vertical disponible */
+  padding-top: 1rem;
+}
+
+.sidebarNav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebarNav li a {
+  display: block;
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  color: #e2e8f0;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  border-left: 3px solid transparent; /* Borde izquierdo para el estado activo */
+}
+
+/* Estilo al pasar el mouse sobre un link */
+.sidebarNav li a:hover {
+  background-color: #334155; /* Un fondo ligeramente más claro */
+  color: #ffffff;
+}
+
+/* Estilo para el link ACTIVO (la página actual) */
+.sidebarNav li a.active {
+  background-color: #0f172a; /* Fondo más oscuro para destacar */
+  color: #ffffff;
+  font-weight: bold;
+  border-left: 3px solid var(--primary-color); /* Usamos la variable de color principal */
+}
+
+/* --- SECCIÓN DEL PIE (BOTÓN DE CERRAR SESIÓN) --- */
+
+.sidebarFooter {
+  padding: 1.5rem;
+  border-top: 1px solid #334155; /* Línea divisoria sutil */
+}
+
+.sidebarFooter button {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--error-color); /* Usamos la variable de color de error */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.sidebarFooter button:hover {
+  opacity: 0.85;
+}

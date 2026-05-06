@@ -1,0 +1,26 @@
+.pacientesContainer {
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 1200px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pacientesHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap; /* Para que sea responsivo en móviles */
+  gap: 3rem; /* Espacio entre columnas */
+}
+
+.submitButton {
+  width: 100%;
+  margin-top: 1rem;
+}

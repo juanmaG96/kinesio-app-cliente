@@ -1,0 +1,76 @@
+.turnosContainer {
+  margin: 1rem auto;
+  padding: 1rem;
+  max-width: 1200px;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.turnosContainer h1 {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.formContainer {
+  display: flex;
+  flex-wrap: wrap; /* Para que sea responsivo en móviles */
+  gap: 2rem; /* Espacio entre columnas */
+}
+
+.formColumn {
+  flex: 1; /* Cada columna toma la mitad del espacio */
+  min-width: 300px; /* Ancho mínimo antes de que se apilen */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espacio entre elementos del formulario */
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 600;
+  color: #334155;
+}
+
+.formInput,
+.formSelect {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  margin-top: 1rem; /* Empuja el botón al final de la columna */
+}
+
+.submitButton:hover {
+  opacity: 0.85;
+}
+
+.error {
+  color: var(--error-color);
+  text-align: center;
+}
+
+.calendarWrapper {
+  display: flex;
+  justify-content: center;
+}

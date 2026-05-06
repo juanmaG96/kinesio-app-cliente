@@ -1,9 +1,8 @@
-import React, {useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LoginForm from '../Components/auth/LoginForm';
 import RegisterUserForm from '../Components/User/RegisterUserForm';
 import apiClient from '../api/axiosConfig'; // Importamos nuestro cliente axios
-import styles from './LoginPage.module.css';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -50,23 +49,34 @@ function LoginPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      {isLoginView ? (
-        <div>
-          <LoginForm onLogin={handleLogin} />
-          <div style={{ textAlign: 'center', marginTop: '1rem' }}>
-            <p>¿No tienes una cuenta?</p>
-              <button onClick={() => setIsLoginView(false)}>
-                Registrarse
-              </button>
-          </div>
+    <div className="min-h-screen flex items-center justify-center bg-slate-300 p-4"> {/* Contenedor principal */}
+      <div className="bg-white max-w-md w-full rounded-3xl shadow-xl p-8 border border-slate-100">
+
+        {/* Logo o título del sistema */}
+        <div className="text-center mb-4">
+          <h1 className="text-2xl font-extrabold text-blue-600">KineSys</h1>
+          <p className="text-sm text-slate-500 mt-2">Gestión de Turnos y Pacientes</p>
         </div>
-      ) : (
-        <RegisterUserForm
-          onRegister={handleRegister}
-          onBackToLogin={() => setIsLoginView(true)}
-        />
-      )}
+      
+        {isLoginView ? (
+          <div>
+            <LoginForm onLogin={handleLogin} />
+            <div className="mt-6 text-center text-sm text-slate-600">
+              <p>¿No tienes una cuenta?</p>
+                <button onClick={() => setIsLoginView(false)}
+                  className="mt-2 text-blue-600 hover:text-blue-800 font-semibold transition-colors"
+                >
+                  Registrarse como Kinesiologo
+                </button>
+            </div>
+          </div>
+        ) : (
+          <RegisterUserForm
+            onRegister={handleRegister}
+            onBackToLogin={() => setIsLoginView(true)}
+          />
+        )}
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Crea una instancia de axios con la configuración base de tu API
 const apiClient = axios.create({
-  baseURL: 'http://localhost:4000', // Reemplaza con la URL de tu backend
+  baseURL: 'http://localhost:4000/api/v1', // Reemplaza con la URL de tu backend
 });
 
 // **¡Clave!** Interceptor para añadir el token de autenticación a cada petición
