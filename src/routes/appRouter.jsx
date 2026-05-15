@@ -26,7 +26,7 @@ function AppRouter() {
 
         </Route>
 
-        {/* Ruta por defecto: si entran a la raíz, los mandas al login */}
+        {/* Ruta por defecto: si entran a la raíz, manda al login */}
         <Route path="/" element={<LoginPage />} />
       </Routes>
     </BrowserRouter>

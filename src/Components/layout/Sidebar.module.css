@@ -1,14 +1,14 @@
 .sidebar {
   display: flex;
   flex-direction: column; /* Organiza los elementos en una columna vertical */
-  width: 250px; /* Ancho fijo del sidebar */
+  width: 225px; /* Ancho fijo del sidebar */
   height: 100vh; /* Ocupa el 100% de la altura de la pantalla */
   background-color: #1e293b; /* Un color de fondo oscuro y profesional (azul marino oscuro) */
   color: #e2e8f0; /* Color de texto claro para buen contraste */
   position: fixed; /* Lo fija en la pantalla para que no se mueva con el scroll */
   top: 0;
   left: 0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2); /* Sombra sutil a la derecha */
+  box-shadow: 2px 0 3px rgba(0, 0, 0, 0.2); /* Sombra sutil a la derecha */
 }
 
 /* --- SECCIÓN DEL ENCABEZADO (LOGO Y USUARIO) --- */

@@ -1,115 +1,130 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Calendar from 'react-calendar';
+import { jwtDecode } from 'jwt-decode';
+import 'react-calendar/dist/Calendar.css';
+import './CustomCalendar.css';
 import apiClient from '../api/axiosConfig';
+import TurnosDelDia from '../Components/turnos/TurnosDelDia';
 
-import styles from './DashboardTurnosPage.module.css';
 
 function DashboardTurnosPage() {
   const [turnos, setTurnos] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  // useEffect se ejecuta cuando el componente se monta por primera vez
+
   useEffect(() => {
-    const fetchTurnos = async () => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
       try {
-        const today = new Date();
-        const year = today.getFullYear();
-        const month = String(today.getMonth() + 1).padStart(2, '0');
-        const day = String(today.getDate()).padStart(2, '0');
-
-        const formattedDate = `${year}-${month}-${day}`;
-        const response = await apiClient.get(`/turnos/fecha/${formattedDate}`);
-        setTurnos(response.data); // Guardamos los turnos en el estado
+        const decodedToken = jwtDecode(token);
+        console.log("CONTENIDO DEL TOKEN:", decodedToken); // Agrega este console.log para verificar el contenido del token decodificado
+        setIsAdmin(decodedToken.esAdmin === true);
       } catch (error) {
-        console.error("Error al obtener los turnos:", error);
-      } finally {
-        setLoading(false); // Dejamos de mostrar el mensaje de carga
+        console.error("Error al decodificar el token:", error);
       }
-    };
-
-    fetchTurnos();
-  }, []); // El array vacío asegura que solo se ejecute una vez
-  const handleEliminarTurno = async (id) => {
-    if (!window.confirm("¿Estás seguro de que deseas eliminar este turno?")) {
-      return;
     }
+  }, []);
+
+  // Función para obtener turnos (la sacamos del useEffect para poder re-usarla al cambiar de fecha)
+  const fetchTurnos = async (date) => {
+    setLoading(true); // Mostramos el mensaje de carga mientras obtenemos los datos
+    try {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      const formattedDate = `${year}-${month}-${day}`;
+
+      const response = await apiClient.get(`/turnos/fecha/${formattedDate}`);
+      setTurnos(response.data); // Guardamos los turnos en el estado
+    } catch (error) {
+      console.error("Error al obtener los turnos:", error);
+    } finally {
+      setLoading(false); // Dejamos de mostrar el mensaje de carga
+    }
+  };
+
+    useEffect(() => {
+      fetchTurnos(selectedDate);
+    }, [selectedDate]); // Volver a obtener los turnos cada vez que cambie la fecha seleccionada
+
+  const handleEliminar = async (id) => {
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este turno?")) return;
     try {
       await apiClient.delete(`/turnos/${id}`); 
       // Actualiza el estado local para reflejar el cambio en la UI
-      setTurnos(turnosActuales => 
-        turnosActuales.filter(turno => turno.id !== id)
-      );
+      setTurnos(prev => prev.filter(turno => turno.id !== id));
     } catch (error) {
-        console.error("Error al eliminar el turno:", error);
         alert('No se pudo eliminar el turno. Intenta nuevamente.');
       }
   };
 
-  const handleNuevoTurno = () => {
-    navigate('/turnos/registrarTurno');
-  };
-  const handleEditarTurno = (id) => {
-    navigate(`/turnos/editar/${id}`);
-  };
-
-  if (loading) {
-    return <p>Cargando turnos del día...</p>;
-  }
-
   return (
-    <div className={styles.turnosContainer}>
-      <div className={styles.turnosHeader}>
-        <h1>Turnos del Día</h1>
-        <button onClick={handleNuevoTurno} className={`${styles.btnTabla} ${styles.btnPrimary}`}>
-          Nuevo Turno
-        </button>
-      </div>
-      {turnos.length === 0 ? (
-        <div className={styles.turnosTable}> {/* Deberías crear esta clase en tu CSS también */}
-          <h5>No tienes turnos programados para hoy.</h5>
+    <div className="max-w-6xl mx-auto min-h-screen bg-slate-50/50">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-800">Gestión de Turnos</h1>
+          <p className="text-slate-500">Visualiza y organiza la agenda kinesica.</p>
         </div>
-      ) : (
-        <table className={styles.turnosTable}>
-          <thead>
-            <tr>
-              <th>Hora</th>
-              <th>Paciente</th>
-              <th>Kinesiologo</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {turnos.map((turno) => (
-              <tr key={turno.id}>
-                <td>
-                  <strong>
-                    {new Date(turno.horaInicio).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                  </strong>
-                </td>
-                <td>
-                  <Link to={`/turnos/ver/${turno.id}`}>
-                    {turno.paciente.nombre} {turno.paciente.apellido}
-                  </Link>
-                </td>
-                <td>
-                  {turno.kinesiologo.nombre} {turno.kinesiologo.apellido}
-                </td>
-                <td>
-                  <button onClick={() => handleEditarTurno(turno.id)} className={`${styles.btnTabla} ${styles.btnEditar}`}>
-                    Editar
-                  </button>
-                </td>
-                <td>
-                  <button onClick={() => handleEliminarTurno(turno.id)} className={`${styles.btnTabla} ${styles.btnEliminar}`}>
-                    Eliminar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+
+        <div className="flex items-center gap-3">
+          {isAdmin && (
+          <button onClick={() => navigate('/turnos/registrarTurno')}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md shadow-blue-200 transition-all active:scale-95"
+          >
+            + Nuevo Turno
+          </button>
+          )}
+        </div>
+          
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Calendarios */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+            <Calendar 
+              onChange={setSelectedDate} 
+              value={selectedDate}
+              className="w-full border-none shadow-none font-sans"
+            />
+          </div>
+        </div>
+
+        {/* Turnos del día seleccionado */}
+        <div className="lg:col-span-7">
+          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+              <h2 className="font-bold text-slate-700">
+                Turnos del {selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}
+              </h2>
+              <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-100">
+                {turnos.length} turnos
+              </span>
+            </div>
+            
+            <div className="p-2">
+              {loading ? (
+                <div className="flex flex-col items-center justify-center py-20 gap-3">
+                  <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  <p className="text-slate-400 text-sm font-medium">Sincronizando agenda...</p>
+                </div>
+              ) : (
+                <TurnosDelDia 
+                  turnos={turnos}
+                  onEditar={(id) => navigate(`/turnos/editar/${id}`)}
+                  onEliminar={handleEliminar}
+                  onVerDetalle={(id) => navigate(`/turnos/ver/${id}`)}
+                  isAdmin={isAdmin}
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
