@@ -21,7 +21,6 @@ function DashboardTurnosPage() {
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        console.log("CONTENIDO DEL TOKEN:", decodedToken); // Agrega este console.log para verificar el contenido del token decodificado
         setIsAdmin(decodedToken.esAdmin === true);
       } catch (error) {
         console.error("Error al decodificar el token:", error);
@@ -63,7 +62,7 @@ function DashboardTurnosPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto min-h-screen bg-slate-50/50">
+    <div className="max-w-6xl p-8 mx-auto min-h-full bg-slate-50/50">
       <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-2">
         <div>
           <h1 className="text-2xl font-bold text-slate-800">Gestión de Turnos</h1>
@@ -73,7 +72,7 @@ function DashboardTurnosPage() {
         <div className="flex items-center gap-3">
           {isAdmin && (
           <button onClick={() => navigate('/turnos/registrarTurno')}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md shadow-blue-200 transition-all active:scale-95"
+            className="bg-teal-600 hover:bg-teal-700 text-white px-5 py-2 rounded-lg font-semibold shadow-md shadow-teal-200 transition-all active:scale-95"
           >
             + Nuevo Turno
           </button>
@@ -85,7 +84,7 @@ function DashboardTurnosPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Calendarios */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white p-2 rounded-2xl shadow-sm border border-slate-200">
+          <div className="bg-white p-2 rounded-2xl shadow-md shadow-teal-200 border border-slate-400">
             <Calendar 
               onChange={setSelectedDate} 
               value={selectedDate}
@@ -96,12 +95,12 @@ function DashboardTurnosPage() {
 
         {/* Turnos del día seleccionado */}
         <div className="lg:col-span-7">
-          <div className="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+          <div className="bg-white rounded-2xl shadow-md shadow-teal-200 border border-slate-400 overflow-hidden">
+            <div className="px-6 py-4 border-b border-slate-300 flex justify-between items-center bg-slate-50/50">
               <h2 className="font-bold text-slate-700">
                 Turnos del {selectedDate.toLocaleDateString('es-AR', { day: 'numeric', month: 'long' })}
               </h2>
-              <span className="text-xs font-semibold text-blue-600 bg-blue-50 px-2 py-1 rounded-full border border-blue-100">
+              <span className="text-xs font-semibold text-teal-600 bg-teal-50 px-2 py-1 rounded-full border border-teal-100">
                 {turnos.length} turnos
               </span>
             </div>
@@ -109,7 +108,7 @@ function DashboardTurnosPage() {
             <div className="p-2">
               {loading ? (
                 <div className="flex flex-col items-center justify-center py-20 gap-3">
-                  <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-8 h-8 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
                   <p className="text-slate-400 text-sm font-medium">Sincronizando agenda...</p>
                 </div>
               ) : (

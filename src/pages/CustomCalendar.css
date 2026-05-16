@@ -6,15 +6,15 @@
 }
 
 .react-calendar__tile--active {
-    background: #2563eb !important; /* blue-600 */
+    background: #0d9488 !important; /* teal-600 */
     border-radius: 12px !important;
     color: white !important;
 }
 
 .react-calendar__tile--now {
-    background: #dbeafe !important; /* blue-100 */
+    background: #ccfbf1 !important; /* teal-50 */
     border-radius: 12px !important;
-    color: #1e40af !important;
+    color: #0f766e !important; /* teal-700 */
 }
 
 .react-calendar__tile:hover {
@@ -28,7 +28,7 @@
     border-radius: 8px;
 }
 
-/* RF09: Aquí podrías inyectar clases para marcar días ocupados */
+/* RF09: Aquí se puede inyectar clases para marcar días ocupados */
 .dia-lleno {
     color: #dc2626 !important; /* Rojo si está lleno */
 }

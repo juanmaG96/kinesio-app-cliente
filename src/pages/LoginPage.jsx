@@ -49,13 +49,13 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-300 p-4"> {/* Contenedor principal */}
-      <div className="bg-white max-w-md w-full rounded-3xl shadow-xl p-8 border border-slate-100">
+    <div className="min-h-screen flex items-center justify-center bg-slate-200 p-4"> {/* Contenedor principal */}
+      <div className="bg-white max-w-md w-full rounded-3xl shadow-md shadow-teal-200 p-8 border border-slate-100">
 
         {/* Logo o título del sistema */}
         <div className="text-center mb-4">
-          <h1 className="text-2xl font-extrabold text-blue-600">KineSys</h1>
-          <p className="text-sm text-slate-500 mt-2">Gestión de Turnos y Pacientes</p>
+          <h1 className="text-2xl font-extrabold text-blue-600">CKAT</h1>
+          <p className="text-sm text-slate-500 mt-2">Gestión de Turnos y Pacientes Kinesiología</p>
         </div>
       
         {isLoginView ? (

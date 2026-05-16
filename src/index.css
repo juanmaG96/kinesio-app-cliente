@@ -2,7 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Opcional: un fondo muy sutil para toda la app */
-body {
-  @apply bg-slate-50 text-slate-800;
+/* Aplicamos la base suave a todo el sistema */
+@layer base {
+  body {
+    @apply bg-slate-200 text-slate-800 antialiased;
+  }
 }

@@ -1,25 +1,32 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom'; // 1. Importa Outlet
-import Sidebar from './Sidebar'; // Importa tu componente Sidebar
-import styles from './MainLayout.module.css';
-
-// Aquí podrías decodificar el token para obtener los datos del usuario
-// Por ahora, lo simulamos. Más adelante lo haremos real.
-const mockUser = {
-  nombre: "Admin",
-  isAdmin: true
-};
+import React, { useState, useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode'; // Importamos el decodificador
+import Sidebar from './Sidebar';
 
 function MainLayout() {
+  const [user, setUser] = useState(null);
+
+  // Cargamos el usuario real desde el token apenas monta el layout
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setUser(decoded);
+      } catch (error) {
+        console.error("Error al decodificar token en Layout:", error);
+      }
+    }
+  }, []);
+
   return (
-    <div className={styles.layout}>
-      {/* El Sidebar siempre estará visible en este layout */}
-      <Sidebar user={mockUser} />
+    // CONTENEDOR PRINCIPAL: h-screen y overflow-hidden bloquean el scroll de la página entera
+    <div className="flex h-screen w-full bg-slate-100 overflow-hidden">
       
-      {/* El <Outlet> es un marcador de posición.
-          React Router renderizará aquí el componente de la página actual 
-          (DashboardPage, PatientsPage, etc.) */}
-      <main className={styles.content}>
+      {/* Pasamos el usuario real al Sidebar */}
+      <Sidebar user={user} />
+      
+      <main className="flex-1 h-full bg-slate-100 overflow-hidden relative">
         <Outlet /> 
       </main>
     </div>
